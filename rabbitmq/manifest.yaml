@@ -1,3 +1,18 @@
+# This is the Secret for user credentils
+apiVersion: v1 
+kind: Secret 
+metadata: 
+  name: rabbitmq
+  namespace: roboshop
+  labels: 
+    component: rabbitmq
+    project: roboshop 
+    tier: app 
+type: Opaque    
+data: 
+  AMQP_USER: "cm9ib3Nob3A=" 
+  AMQP_PASS: "cm9ib3Nob3AxMjM="
+---
 apiVersion: apps/v1 
 kind: Deployment 
 metadata: 
@@ -27,6 +42,7 @@ spec:
       containers: 
       - name: rabbitmq 
         image: rabbitmq:3
+
 
 ---
 # This is the  clusterIP service resource for the rabbitmq pod 
