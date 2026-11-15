@@ -39,9 +39,7 @@ metadata:
     component: mongodb 
     project: roboshop 
     tier: database 
-
 spec: 
-  type: default 
   selector:   
     component: mongodb 
     project: roboshop 
