@@ -1,0 +1,72 @@
+# apiVersion: v1 
+# kind: ConfigMap 
+# metadata: 
+#   name: catalogue
+#   namespace: roboshop 
+#   labels: 
+#     component: catalogue 
+#     project: roboshop 
+#     tier: app 
+# data: 
+#   MONGO: "true" 
+#   MONGO_URL: "mongodb://mongodb:27017/catalogue"
+
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: frontend 
+  namespace: roboshop 
+  # This is Deployment labels
+  labels: 
+    component: frontend 
+    project: roboshop 
+    tier: app 
+spec: 
+  replicas: 1 
+  selector:  
+  # these are pod labels that replicase set creates pod replicas, these should match pod labels
+    matchLabels: 
+      component: frontend 
+      project: roboshop 
+      tier: app 
+  # This is the pod definition    
+  template:  
+    metadata: 
+      labels: 
+        component: frontend 
+        project: roboshop 
+        tier: app 
+    spec: 
+      containers: 
+      - name: frontend 
+        image: khizar111/frontend:v1  
+        envFrom: 
+        - configMapRef:
+            name: frontend
+
+--- 
+# This is the clusterIP service resource for frontend pod 
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: frontend 
+  namespace: roboshop 
+  labels: 
+    component: frontend 
+    project: roboshop 
+    tier: app 
+spec: 
+  type: LoadBalancer
+  selector:
+    component: frontend 
+    project: roboshop 
+    tier: app 
+  ports: 
+  - protocol: TCP 
+    port: 80 #service port
+    targetPort: 80  # container port
+
+
+
+
