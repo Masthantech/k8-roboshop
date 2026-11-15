@@ -41,9 +41,7 @@ spec:
       containers: 
       - name: frontend 
         image: khizar111/frontend:v1  
-        envFrom: 
-        - configMapRef:
-            name: frontend
+        
 
 --- 
 # This is the clusterIP service resource for frontend pod 
