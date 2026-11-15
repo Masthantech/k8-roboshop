@@ -41,8 +41,10 @@ spec:
     spec: 
       containers: 
       - name: rabbitmq 
-        image: rabbitmq:3
-
+        image: rabbitmq:3 
+        envFrom: 
+        - secretRef:
+            name: rabbitmq
 
 ---
 # This is the  clusterIP service resource for the rabbitmq pod 
