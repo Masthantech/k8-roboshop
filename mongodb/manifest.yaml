@@ -26,9 +26,9 @@ spec:
     spec: 
       containers: 
       - name: mongodb 
-        image: khizar111/mongodb    
+        image: khizar111/mongodb  
 
------
+---
 # This is the  clusterIP service resource for the mongodb pod 
 apiVersion: v1 
 kind: Service 
