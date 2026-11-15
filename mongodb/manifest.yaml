@@ -1,0 +1,53 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: mongodb 
+  namespace: roboshop 
+  # Below are the Deployment labels
+  labels: 
+    component: mongodb 
+    project: roboshop 
+    tier: database 
+spec: 
+  replicas: 1 
+  # These are the labels Deplyment uses to to create pod replicas. This should match Pod labels.
+  selector: 
+    matchLabels: 
+      component: mongodb 
+      project: roboshop 
+      tier: database
+  # This is the Pod definition
+  template: 
+    metadata: 
+      labels: 
+        component: mongodb 
+        project: roboshop 
+        tier: database
+    spec: 
+      containers: 
+      - name: mongodb 
+        image: khizar111/mongodb    
+
+-----
+# This is the  clusterIP service resource for the mongodb pod 
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: mongodb 
+  namespace: roboshop
+  labels: 
+    component: mongodb 
+    project: roboshop 
+    tier: database 
+
+spec: 
+  type: default 
+  selector:   
+    component: mongodb 
+    project: roboshop 
+    tier: database 
+  ports: 
+  - protocol: TCP 
+    port: 27017 # service port
+    targetPort: 27017  # container port
+
